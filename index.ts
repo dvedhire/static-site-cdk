@@ -14,8 +14,8 @@ import { StaticSite } from './static-site';
  * }
 **/
 class MyStaticSiteStack extends cdk.Stack {
-    constructor(parent: cdk.App, name: string) {
-        super(parent, name);
+    constructor(parent: cdk.App, name: string, props: cdk.StackProps) {
+        super(parent, name, props);
 
         new StaticSite(this, 'StaticSite', {
             domainName: this.node.tryGetContext('domain'),
@@ -26,6 +26,8 @@ class MyStaticSiteStack extends cdk.Stack {
 
 const app = new cdk.App();
 
-new MyStaticSiteStack(app, 'MyStaticSite');
+new MyStaticSiteStack(app, 'MyStaticSite', { env: {
+    region: 'us-east-1'
+}});
 
 app.synth();
